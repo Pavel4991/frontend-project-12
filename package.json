@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Pavel4991/frontend-project-12.git"
   },
+  "workspaces": ["frontend"],
   "license": "ISC",
   "author": "Pavel Dzianisau <pdenisov327@gmail.com>",
   "type": "commonjs",
