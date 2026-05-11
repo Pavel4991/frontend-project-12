@@ -20,7 +20,7 @@ export const Login = () => {
             <div className="card shadow-sm">
               <div className="card-body row p-5">
                 <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <img src="./src/assets/avatar-DIE1AEpS.jpg" className="rounded-circle" alt="Войти" />
+                  <img src="./public/avatar-DIE1AEpS.jpg" className="rounded-circle" alt="Войти" />
                 </div>
                 <Formik
                   initialValues={{ username: "", password: "" }}
