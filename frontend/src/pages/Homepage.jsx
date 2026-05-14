@@ -4,6 +4,8 @@ import { getMessages } from "../api"
 import { addMessages } from "../slices/messagesSlice"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { getChannels } from "../api"
+import { addChannels } from "../slices/channelsSlice"
 
 const Homepage = () => {
   const token = JSON.parse(localStorage.getItem('user')).token
@@ -13,6 +15,11 @@ const Homepage = () => {
     getMessages(token)
       .then((response) => {
         dispatch(addMessages(response.data))
+      })
+
+    getChannels(token)
+      .then((response) => {
+        dispatch(addChannels(response.data))
       })
   }, [])
 

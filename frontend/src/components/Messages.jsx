@@ -3,10 +3,12 @@ import { useSelector } from "react-redux"
 import { addNewMessage } from "../api"
 import { Formik, Form, Field } from "formik"
 
+import { selectors } from "../slices/messagesSlice"
+
 const Messages = () => {
-  const activeChannelId = useSelector(state => state.channels.activeChannelId)
-  const activeChannelName = useSelector(state => state.channels.activeChannelName)
-  const messages = useSelector(state => state.messages.messages)
+  const activeChannelId = useSelector(state => state.view.activeChannelId)
+  const activeChannelName = useSelector(state => state.view.activeChannelName)
+  const messages = useSelector(selectors.selectAll)
   const channelsMessages = messages.filter(({ channelId }) => channelId === activeChannelId)
 
 
@@ -20,7 +22,7 @@ const Messages = () => {
           <p className="m-0">
             <b># {activeChannelName}</b>
           </p>
-          <span className="text-muted">{messages.length} сообщения</span>
+          <span className="text-muted">{channelsMessages.length} сообщения</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {channelsMessages.map(message => (<Message key={message.id} username={message.username} body={message.body}/>))}

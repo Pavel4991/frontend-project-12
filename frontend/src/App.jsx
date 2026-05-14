@@ -8,6 +8,9 @@ import { login } from './slices/authorizationSlice'
 import { RequireAuth } from './hoc/RequireAuth'
 import { io } from "socket.io-client"
 import { addNewMessage } from './slices/messagesSlice'
+import { addNewChannel } from './slices/channelsSlice'
+import { removeChannel } from './slices/channelsSlice'
+import { renameChannel } from './slices/channelsSlice'
 
 
 function App() {
@@ -15,13 +18,23 @@ function App() {
   const user = localStorage.getItem('user') ?? ''
 
   const socket = io("http://localhost:5001", {
-    transports: ["websocket"], // Помогает избежать проблем с polling
+    transports: ["websocket"]
   })
 
   socket.on('newMessage', (payload) => {
-    console.log('hi from messages')
-    console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
     dispatch(addNewMessage(payload))
+  });
+
+  socket.on('newChannel', (payload) => {
+    dispatch(addNewChannel(payload))
+  });
+
+  socket.on('renameChannel', (payload) => {
+    dispatch(renameChannel({ id: payload.id, changes: { name: payload.name } }))
+  });
+
+  socket.on('removeChannel', (payload) => {
+    dispatch(removeChannel(payload.id))
   });
 
   if (user) {
