@@ -4,23 +4,25 @@ import { useDispatch } from "react-redux"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { authorization } from '../api/index'
+import { useTranslation } from 'react-i18next'
+import loginAvatar from  '../assets/avatar-DIE1AEpS.jpg'
 
 
 
 export const Login = () => {
+  const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState('')
 
   return (
-    <div className="d-flex flex-column h-100">
       <div className="container-fluid h-100">
         <div className="row justify-content-center align-content-center h-100">
           <div className="col-12 col-md-8 col-xxl-6">
             <div className="card shadow-sm">
               <div className="card-body row p-5">
                 <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <img src="./public/avatar-DIE1AEpS.jpg" className="rounded-circle" alt="Войти" />
+                  <img src={loginAvatar} className="rounded-circle" alt="Войти" />
                 </div>
                 <Formik
                   initialValues={{ username: "", password: "" }}
@@ -30,30 +32,30 @@ export const Login = () => {
                         .then(response => {
                           const data = response.data
                           localStorage.setItem('user', JSON.stringify(data))
-                          dispatch(login())
+                          dispatch(login(response.data))
                           navigate('/')
                         })
                     } catch(e) {
                       setError(e.status)
                     }
                     
-                    setSubmitting(false);
+                    setSubmitting(false)
                   }}
                 >
                   {() => (
                     <Form className='col-12 col-md-6 mt-3 mt-md-0'>
-                      <h1 className="text-center mb-4">Войти</h1>
+                      <h1 className="text-center mb-4">{t('ui.loginPage.title')}</h1>
                       <div className="form-floating mb-3">
                         <Field
                           id="username"
                           type="text"
                           name="username"
                           className={error ? "form-control is-invalid" : "form-control"}
-                          placeholder="Ваш ник"
+                          placeholder={t('ui.loginPage.nameField')}
                           autoComplete="username"
                           required=""
                         />
-                        <label htmlFor="username" className='form-label'>Ваш ник</label>
+                        <label htmlFor="username" className='form-label'>{t('ui.loginPage.nameField')}</label>
                       </div>
                       <div className="form-floating mb-4">
                         <Field
@@ -62,13 +64,13 @@ export const Login = () => {
                           name="password"
                           className={error ? "form-control is-invalid" : "form-control"}
                           autoComplete="current-password"
-                          placeholder="Пароль"
+                          placeholder={t('ui.loginPage.passwordField')}
                           required=""
                         />
-                        <label htmlFor="password" className="form-label">Пароль</label>
-                        {error && <div className="invalid-tooltip">Неверные имя пользователя или пароль</div>}
+                        <label htmlFor="password" className="form-label">{t('ui.loginPage.passwordField')}</label>
+                        {error && <div className="invalid-tooltip">{t('ui.loginPage.error')}</div>}
                       </div>
-                      <button type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>
+                      <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('ui.loginPage.title')}</button>
                     </Form>
                   )}
                 </Formik>
@@ -83,6 +85,5 @@ export const Login = () => {
           </div>
         </div>
       </div>
-    </div>
   )
 }

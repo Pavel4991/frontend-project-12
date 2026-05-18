@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import store from './slices/index.js'
 import './styles/style.css'
 import * as bootstrap from 'bootstrap'
-
+import './i18next'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

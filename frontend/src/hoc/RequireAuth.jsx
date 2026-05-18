@@ -1,5 +1,5 @@
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const RequireAuth = ({children}) => {
   const authStatus = useSelector(state => state.authorization.authStatus)

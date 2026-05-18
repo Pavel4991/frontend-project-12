@@ -2,10 +2,11 @@ import { Message } from "./Message"
 import { useSelector } from "react-redux"
 import { addNewMessage } from "../api"
 import { Formik, Form, Field } from "formik"
-
+import { useTranslation } from 'react-i18next'
 import { selectors } from "../slices/messagesSlice"
 
 const Messages = () => {
+  const { t, i18n } = useTranslation()
   const activeChannelId = useSelector(state => state.view.activeChannelId)
   const activeChannelName = useSelector(state => state.view.activeChannelName)
   const messages = useSelector(selectors.selectAll)
@@ -22,7 +23,7 @@ const Messages = () => {
           <p className="m-0">
             <b># {activeChannelName}</b>
           </p>
-          <span className="text-muted">{channelsMessages.length} сообщения</span>
+          <span className="text-muted">{t('ui.homePage.message', { count: channelsMessages.length })}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {channelsMessages.map(message => (<Message key={message.id} username={message.username} body={message.body}/>))}
@@ -33,7 +34,7 @@ const Messages = () => {
             onSubmit={async (values,{ setSubmitting }) => {
               const newMessage = { body: values.body, channelId: activeChannelId, username: username}
               addNewMessage(token, newMessage)
-              setSubmitting(false);
+              setSubmitting(false)
             }}
           >
             {() => (
@@ -50,7 +51,7 @@ const Messages = () => {
                     <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z">
                     </path>
                     </svg>
-                    <span className="visually-hidden">Отправить</span>
+                    <span className="visually-hidden">{t('ui.homePage.sendMessageButton')}</span>
                   </button>
                 </div>
               </Form>

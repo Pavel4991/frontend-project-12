@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveChannel } from "../slices/viewSlice"
-import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap';
-import { useState } from "react";
-import { setModal } from "../slices/modalsSlice";
+import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { useState } from "react"
+import { setModal } from "../slices/modalsSlice"
 
 
 const BaseChannelButton = ({ channel, handleClick, activeChannel }) => {
@@ -18,6 +19,7 @@ const BaseChannelButton = ({ channel, handleClick, activeChannel }) => {
 
 
 const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
+  const { t, i18n } = useTranslation()
   const isActive = activeChannel === channel.id
   const dispatch = useDispatch()
 
@@ -38,8 +40,8 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
       <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id="dropdown-split-basic" className="flex-grow-0"/>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={openRemoveModal}>Удалить</Dropdown.Item>
-        <Dropdown.Item href="#" onClick={openRenameModal}>Переименовать</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={openRemoveModal}>{t('ui.homePage.deleteChannel')}</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={openRenameModal}>{t('ui.homePage.renameChannel')}</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )
@@ -68,5 +70,3 @@ const Channel = ({ channel }) => {
 
 export {Channel}
 
-
-<button type="button" class="w-100 rounded-0 text-start btn btn-secondary"><span class="me-1">#</span>general</button>

@@ -1,11 +1,15 @@
-import axios from "axios";
+import axios from "axios"
 
 const authorization = async (username, password) => {
   return await axios.post('api/v1/login', { username, password })
 }
 
+const createNewUser = async(username, password) => {
+  return await axios.post('/api/v1/signup', { username, password })
+}
+
 const getChannels = async (token) => {
-  return axios.get('api/v1/channels', {
+  return await axios.get('api/v1/channels', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -28,8 +32,6 @@ const addNewMessage = async (token, newMessage) => {
   })
 }
 
-// const newChannel = { name: 'new channel' };
-
 const addNewChannel = async (token, newChannel) => {
   axios.post('/api/v1/channels', newChannel, {
     headers: {
@@ -38,8 +40,6 @@ const addNewChannel = async (token, newChannel) => {
   })
 }
 
-// const editedChannel = { name: 'new name channel' };
-
 const renameChannel = (token, channelId, editedChannel) => {
   axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
     headers: {
@@ -47,7 +47,6 @@ const renameChannel = (token, channelId, editedChannel) => {
     },
   })
 }
-
 
 const removeChannel = (token, channelId) => {
   axios.delete(`/api/v1/channels/${channelId}`, {
@@ -58,4 +57,4 @@ const removeChannel = (token, channelId) => {
 }
 
 
-export { authorization, getChannels, getMessages, addNewMessage, addNewChannel, renameChannel, removeChannel }
+export { authorization, createNewUser, getChannels, getMessages, addNewMessage, addNewChannel, renameChannel, removeChannel }

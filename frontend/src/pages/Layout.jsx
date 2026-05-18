@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import getModal from '../components/modals/index'
 import { useSelector } from 'react-redux'
+import { Header } from '../components/Header'
 
 
 const renderModal = ({ activeModal, hideModal }) => {
@@ -22,7 +23,10 @@ export const Layout = () => {
   return (
     <>
       <div className="vh-100 bg-light" id="chat">
-        <Outlet />
+        <div className="d-flex flex-column h-100">
+          <Header />
+          <Outlet />
+        </div>
       </div>
       {renderModal({ activeModal, hideModal })}
     </>
