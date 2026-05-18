@@ -18,25 +18,25 @@ function App() {
   const dispatch = useDispatch()
   const isAuth = localStorage.getItem('user')
 
-  const socket = io("http://localhost:5001", {
-    transports: ["websocket"]
-  })
+  // const socket = io("http://localhost:5001", {
+  //   transports: ["websocket"]
+  // })
 
-  socket.on('newMessage', (payload) => {
-    dispatch(addNewMessage(payload))
-  })
+  // socket.on('newMessage', (payload) => {
+  //   dispatch(addNewMessage(payload))
+  // })
 
-  socket.on('newChannel', (payload) => {
-    dispatch(addNewChannel(payload))
-  })
+  // socket.on('newChannel', (payload) => {
+  //   dispatch(addNewChannel(payload))
+  // })
 
-  socket.on('renameChannel', (payload) => {
-    dispatch(renameChannel({ id: payload.id, changes: { name: payload.name } }))
-  })
+  // socket.on('renameChannel', (payload) => {
+  //   dispatch(renameChannel({ id: payload.id, changes: { name: payload.name } }))
+  // })
 
-  socket.on('removeChannel', (payload) => {
-    dispatch(removeChannel(payload.id))
-  })
+  // socket.on('removeChannel', (payload) => {
+  //   dispatch(removeChannel(payload.id))
+  // })
 
   if (isAuth) {
     const user = JSON.parse(isAuth)

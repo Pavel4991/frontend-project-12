@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 import store from './slices/index.js'
 import './styles/style.css'
 import * as bootstrap from 'bootstrap'
-import './i18next'
 import App from './App.jsx'
+import initApp from './init'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      {initApp(App)}
     </Provider>
   </StrictMode>,
 )

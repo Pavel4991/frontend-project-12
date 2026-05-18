@@ -4,14 +4,17 @@ import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useState } from "react"
 import { setModal } from "../slices/modalsSlice"
+import filter from 'leo-profanity'
 
 
-const BaseChannelButton = ({ channel, handleClick, activeChannel }) => {
+
+const BaseButton = ({ channel, handleClick, activeChannel }) => {
   const isActive = activeChannel === channel.id
+  filter.loadDictionary('ru')
 
   return (
     <Button className='w-100 rounded-0 text-start' variant={isActive ? "secondary" : ""} onClick={handleClick}>
-      <span className="me-1">#</span>{channel.name}
+      <span className="me-1">#</span>{filter.clean(channel.name)}
     </Button>
   )
 }
@@ -33,9 +36,7 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
 
   return (
     <Dropdown as={ButtonGroup} className="d-flex">
-      <Button className='w-100 rounded-0 text-start' variant={isActive ? "secondary" : ""} onClick={handleClick}>
-        <span className="me-1">#</span>{channel.name}
-      </Button>
+      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
 
       <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id="dropdown-split-basic" className="flex-grow-0"/>
 
@@ -62,7 +63,7 @@ const Channel = ({ channel }) => {
     <li className="nav-item w-100">
     {isNewChannel ?
       <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/> :
-      <BaseChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
+      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
     }
     </li> 
   )
