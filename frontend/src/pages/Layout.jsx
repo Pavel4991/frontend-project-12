@@ -3,6 +3,7 @@ import { useState } from 'react'
 import getModal from '../components/modals/index'
 import { useSelector } from 'react-redux'
 import { Header } from '../components/Header'
+import { ToastContainer } from 'react-toastify';
 
 
 const renderModal = ({ activeModal, hideModal }) => {
@@ -26,6 +27,7 @@ export const Layout = () => {
         <div className="d-flex flex-column h-100">
           <Header />
           <Outlet />
+          <ToastContainer />
         </div>
       </div>
       {renderModal({ activeModal, hideModal })}

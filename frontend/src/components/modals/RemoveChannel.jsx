@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeModal } from "../../slices/modalsSlice"
 import { removeChannel } from "../../api"
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const RemoveChannel = () => {
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
   const channelId = useSelector(state => state.modals.activeModal).item.id
   const token = JSON.parse(localStorage.getItem('user')).token
+  const notify = () => toast.success(t('ui.toast.removeChannel'))
+  
 
   const closeRemoveModal = () => {
     dispatch(removeModal())
@@ -17,6 +20,7 @@ const RemoveChannel = () => {
   const deleteChannel = () => {
     removeChannel(token, channelId)
     closeRemoveModal()
+    notify()
   }
 
 

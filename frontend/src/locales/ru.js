@@ -41,6 +41,11 @@ export default {
         deleteButton: 'Удалить',
         shortOrLong: 'От 3 до 20 символов',
         duplicateName: 'Должно быть уникальным',
+      },
+      toast: {
+        addChannel: 'Канал создан',
+        renameChannel: 'Канал переименован',
+        removeChannel: 'Канал удалён',
       }
     },
   },

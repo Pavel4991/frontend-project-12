@@ -14,9 +14,6 @@ import { Signup } from './pages/Signup'
 import { Homepage } from './pages/Homepage'
 import { NotFound } from './pages/Notfound'
 
-
-
-
 function App() {
   const dispatch = useDispatch()
   const isAuth = localStorage.getItem('user')

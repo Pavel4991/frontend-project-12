@@ -7,12 +7,14 @@ import { useRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { selectors } from '../../slices/channelsSlice'
 import { object, string, setLocale } from 'yup'
+import { toast } from 'react-toastify'
 
 const AddChannel = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const channels = useSelector(selectors.selectAll).map(channel => channel.name)
   const [error, setError] = useState('')
+  const notify = () => toast.success(t('ui.toast.addChannel'))
   
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -61,6 +63,7 @@ const AddChannel = () => {
             await validateName(values.name)
               .then(name => addNewChannel(token, { name: name }))
               .then(closeModal)
+              .then(notify)
               .catch(e => setError(e.errors))
             
             setSubmitting(false)
@@ -76,8 +79,8 @@ const AddChannel = () => {
                   name="name"
                   className={`mb-2 form-control ${error ? "is-invalid" : ""}`}
                 />
-                {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}
                 <label htmlFor="name" className="visually-hidden">{t('ui.modals.channelName')}</label>
+                {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}
               </div>
               <div className="d-flex justify-content-end">
                 <button type="button" className="me-2 btn btn-secondary" onClick={closeModal}>{t('ui.modals.cancelButton')}</button>
