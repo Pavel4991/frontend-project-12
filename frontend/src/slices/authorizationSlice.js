@@ -9,16 +9,17 @@ const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    login: (state, action) => {
+    logIn: (state, action) => {
       state.currentUser = action.payload
       state.authStatus = true
     },
-    logout: (state) => {
+    logOut: (state) => {
+      state.currentUser = {}
       state.authStatus = false
     },
   },
 })
 
-export const { login, logout} = authorizationSlice.actions
+export const { logIn, logOut} = authorizationSlice.actions
 
 export default authorizationSlice.reducer

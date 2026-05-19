@@ -4,6 +4,26 @@ import getModal from '../components/modals/index'
 import { useSelector } from 'react-redux'
 import { Header } from '../components/Header'
 import { ToastContainer } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
+
+// function TestRollbar() {
+//   const rollbar = useRollbar();
+
+//   return (
+//     <div>
+//       <button onClick={() => rollbar.info('Test message from React')}>
+//         Send Test Message
+//       </button>
+//       <button
+//         onClick={() => {
+//           throw new Error('Test error from React ErrorBoundary');
+//         }}
+//       >
+//         Trigger Test Error
+//       </button>
+//     </div>
+//   );
+// }
 
 
 const renderModal = ({ activeModal, hideModal }) => {
@@ -28,6 +48,7 @@ export const Layout = () => {
           <Header />
           <Outlet />
           <ToastContainer />
+          {/* <TestRollbar /> */}
         </div>
       </div>
       {renderModal({ activeModal, hideModal })}

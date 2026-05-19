@@ -2,22 +2,22 @@ import { Modal } from 'react-bootstrap'
 import { Formik, Form, Field } from 'formik'
 import { removeModal } from '../../slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { addNewChannel } from '../../api'
 import { useRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { selectors } from '../../slices/channelsSlice'
 import { object, string, setLocale } from 'yup'
 import { toast } from 'react-toastify'
+import { useAddNewChannelMutation } from '../../services/channelsApi'
 
 const AddChannel = () => {
   const { t, i18n } = useTranslation()
-  const dispatch = useDispatch()
   const channels = useSelector(selectors.selectAll).map(channel => channel.name)
   const [error, setError] = useState('')
+  const dispatch = useDispatch()
+  const [addChannel] = useAddNewChannelMutation()
+
   const notify = () => toast.success(t('ui.toast.addChannel'))
   
-  const token = JSON.parse(localStorage.getItem('user')).token
-
   const inputRef = useRef()
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const AddChannel = () => {
           initialValues={{ name: "" }}
           onSubmit={async (values, { setSubmitting }) => {
             await validateName(values.name)
-              .then(name => addNewChannel(token, { name: name }))
+              .then(name => addChannel({ name: name }))
               .then(closeModal)
               .then(notify)
               .catch(e => setError(e.errors))

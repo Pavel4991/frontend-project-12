@@ -1,11 +1,11 @@
 import { Formik, Form, Field } from 'formik'
-import { login } from '../slices/authorizationSlice'
+import { logIn } from '../slices/authorizationSlice'
 import { useDispatch } from "react-redux"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-import { authorization } from '../api/index'
 import { useTranslation } from 'react-i18next'
 import loginAvatar from  '../assets/avatar-DIE1AEpS.jpg'
+import { useLoginMutation } from '../services/authApi'
 
 
 
@@ -14,6 +14,7 @@ export const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState('')
+  const [login] = useLoginMutation()
 
   return (
       <div className="container-fluid h-100">
@@ -28,11 +29,11 @@ export const Login = () => {
                   initialValues={{ username: "", password: "" }}
                   onSubmit={async (values,{ setSubmitting }) => {
                     try {
-                      await authorization(values.username, values.password)
+                      await login({ username: values.username, password: values.password })
                         .then(response => {
                           const data = response.data
                           localStorage.setItem('user', JSON.stringify(data))
-                          dispatch(login(response.data))
+                          dispatch(logIn(response.data))
                           navigate('/')
                         })
                     } catch(e) {

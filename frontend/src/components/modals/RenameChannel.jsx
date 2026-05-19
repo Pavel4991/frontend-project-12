@@ -2,22 +2,23 @@ import { Modal } from 'react-bootstrap'
 import { Formik, Form, Field } from 'formik'
 import { removeModal } from '../../slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { renameChannel } from '../../api'
 import { useRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { object, string, setLocale } from 'yup'
 import { selectors } from '../../slices/channelsSlice'
+import { useRenameChannelMutation } from '../../services/channelsApi'
 
 const RenameChannel = () => {
-  const token = JSON.parse(localStorage.getItem('user')).token
   const { t, i18n } = useTranslation()
+  const token = useSelector(state => state.authorization.currentUser).token
   const channels = useSelector(selectors.selectAll).map(channel => channel.name)
-  const channel = useSelector(state => state.modals.activeModal).item
-  const dispatch = useDispatch()
+  const channel = useSelector(state => state.modals.activeModal).channel
   const [error, setError] = useState('')
-  const notify = () => toast.success(t('ui.toast.renameChannel'))
+  const dispatch = useDispatch()
+  const [renameChannel] = useRenameChannelMutation()
   
+  const notify = () => toast.success(t('ui.toast.renameChannel'))
 
   const closeModal = () => {
     dispatch(removeModal())
@@ -51,7 +52,6 @@ const RenameChannel = () => {
     return name
   }
 
-
   return (
     <>
     <Modal show onHide={closeModal} centered>
@@ -63,7 +63,7 @@ const RenameChannel = () => {
           initialValues={{ name: channel.name }}
           onSubmit={async (values,{ setSubmitting }) => {
             await validateName(values.name)
-              .then(name => renameChannel(token, channel.id, { name: name }))
+              .then(name => renameChannel({ channelId: channel.id, editedChannel: { name: name }}))
               .then(closeModal)
               .then(notify)
               .catch(e => setError(e.errors))
@@ -87,7 +87,7 @@ const RenameChannel = () => {
                 {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}
               </div>
               <div className="d-flex justify-content-end">
-                <button type="button" className="me-2 btn btn-secondary">{t('ui.modals.cancelButton')}</button>
+                <button type="button" className="me-2 btn btn-secondary" onClick={closeModal}>{t('ui.modals.cancelButton')}</button>
                 <button type="submit" className="btn btn-primary">{t('ui.modals.sendButton')}</button>
               </div>
             </Form>

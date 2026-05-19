@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  activeModal: { type: null, item: null },
+  activeModal: { type: null, channel: null },
 }
 
 const modalsSlice = createSlice({
@@ -12,7 +12,7 @@ const modalsSlice = createSlice({
       state.activeModal = action.payload
     },
     removeModal: (state) => {
-      state.activeModal = { type: null, item: null}
+      state.activeModal = { type: null, channel: null}
     },
   },
 })

@@ -1,20 +1,20 @@
 import { Message } from "./Message"
 import { useSelector } from "react-redux"
-import { addNewMessage } from "../api"
 import { Formik, Form, Field } from "formik"
 import { useTranslation } from 'react-i18next'
 import { selectors } from "../slices/messagesSlice"
+import { useAddNewMessageMutation } from "../services/messagesApi"
 
 const Messages = () => {
   const { t, i18n } = useTranslation()
   const activeChannelId = useSelector(state => state.view.activeChannelId)
   const activeChannelName = useSelector(state => state.view.activeChannelName)
   const messages = useSelector(selectors.selectAll)
+  const user = useSelector(state => state.authorization.currentUser)
   const channelsMessages = messages.filter(({ channelId }) => channelId === activeChannelId)
-
-
-  const token = JSON.parse(localStorage.getItem('user')).token
-  const username = JSON.parse(localStorage.getItem('user')).username
+  const token = user.token
+  const username = user.username
+  const [addNewMessage] = useAddNewMessageMutation()
 
   return (
     <div className="col p-0 h-100">
@@ -33,7 +33,7 @@ const Messages = () => {
             initialValues={{ body: "" }}
             onSubmit={async (values,{ setSubmitting }) => {
               const newMessage = { body: values.body, channelId: activeChannelId, username: username}
-              addNewMessage(token, newMessage)
+              addNewMessage(newMessage)
               setSubmitting(false)
             }}
           >

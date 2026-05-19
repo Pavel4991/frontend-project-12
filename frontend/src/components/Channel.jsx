@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setActiveChannel } from "../slices/viewSlice"
-import { ButtonGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap'
+import { ButtonGroup, Button, Dropdown } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { useState } from "react"
 import { setModal } from "../slices/modalsSlice"
 import filter from 'leo-profanity'
 
@@ -10,7 +9,6 @@ import filter from 'leo-profanity'
 
 const BaseButton = ({ channel, handleClick, activeChannel }) => {
   const isActive = activeChannel === channel.id
-  filter.loadDictionary('ru')
 
   return (
     <Button className='w-100 rounded-0 text-start' variant={isActive ? "secondary" : ""} onClick={handleClick}>
@@ -27,22 +25,22 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
   const dispatch = useDispatch()
 
   const openRemoveModal = () => {
-    dispatch(setModal({type: 'removing', item: channel}))
+    dispatch(setModal({type: 'removing', channel: channel}))
   }
 
   const openRenameModal = () => {
-    dispatch(setModal({type: 'renaming', item: channel}))
+    dispatch(setModal({type: 'renaming', channel: channel}))
   }
 
   return (
     <Dropdown as={ButtonGroup} className="d-flex">
       <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
 
-      <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id="dropdown-split-basic" className="flex-grow-0"/>
+      <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id={channel.name} className="flex-grow-0"/>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={openRemoveModal}>{t('ui.homePage.deleteChannel')}</Dropdown.Item>
-        <Dropdown.Item href="#" onClick={openRenameModal}>{t('ui.homePage.renameChannel')}</Dropdown.Item>
+        <Dropdown.Item as="button" onClick={openRemoveModal}>{t('ui.homePage.deleteChannel')}</Dropdown.Item>
+        <Dropdown.Item as="button" onClick={openRenameModal}>{t('ui.homePage.renameChannel')}</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )

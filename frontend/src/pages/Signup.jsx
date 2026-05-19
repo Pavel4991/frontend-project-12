@@ -1,12 +1,12 @@
 import { Formik, Form, Field } from 'formik'
-import { login } from '../slices/authorizationSlice'
+import { logIn } from '../slices/authorizationSlice'
 import { useDispatch } from "react-redux"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-import { createNewUser } from '../api/index'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import signupAvatar from '../assets/avatar_1-D7Cot-zE.jpg'
+import { useSignupMutation } from '../services/authApi'
 
 
 export const Signup = () => {
@@ -14,6 +14,7 @@ export const Signup = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState('')
+  const [signup] = useSignupMutation()
   
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
@@ -41,11 +42,11 @@ export const Signup = () => {
                 validationSchema={SignupSchema}
                 onSubmit={async (values,{ setSubmitting }) => {
                    try {
-                    await createNewUser(values.username, values.password)
+                    await signup({ username: values.username, password: values.password})
                       .then(response => {
                         const data = response.data
                         localStorage.setItem('user', JSON.stringify(data))
-                        dispatch(login(response.data))
+                        dispatch(logIn(response.data))
                         navigate('/')
                       })
                   } catch(e) {
