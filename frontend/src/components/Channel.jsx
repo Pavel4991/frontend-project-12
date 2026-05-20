@@ -9,7 +9,7 @@ const BaseButton = ({ channel, handleClick, activeChannel }) => {
   const isActive = activeChannel === channel.id
 
   return (
-    <Button className="w-100 rounded-0 text-start" variant={isActive ? "secondary" : ""} onClick={handleClick}>
+    <Button className="w-100 rounded-0 text-start" variant={isActive ? 'secondary' : ''} onClick={handleClick}>
       <span className="me-1">#</span>
       {filter.clean(channel.name)}
     </Button>
@@ -31,9 +31,9 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
 
   return (
     <Dropdown as={ButtonGroup} className="d-flex">
-      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
+      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel} />
 
-      <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id={channel.name} className="flex-grow-0">
+      <Dropdown.Toggle split variant={isActive ? 'secondary' : ''} id={channel.name} className="flex-grow-0">
         <span className="visually-hidden">{t('ui.homePage.сhannelСontrol')}</span>
       </Dropdown.Toggle>
 
@@ -58,10 +58,9 @@ const Channel = ({ channel }) => {
     <li className="nav-item w-100">
       {isNewChannel
         ? <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>
-        : <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>
-      }
-    </li> 
+        : <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>}
+    </li>
   )
 }
 
-export {Channel}
+export { Channel }

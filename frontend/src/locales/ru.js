@@ -54,7 +54,7 @@ export default {
         renameChannel: 'Канал переименован',
         removeChannel: 'Канал удалён',
         disconnect: 'Ошибка соединения',
-      }
+      },
     },
   },
 }

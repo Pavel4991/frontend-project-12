@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import loginAvatar from  '../assets/avatar-DIE1AEpS.jpg'
+import loginAvatar from '../assets/avatar-DIE1AEpS.jpg'
 import { useLoginMutation } from '../services/authApi'
 import { toast } from 'react-toastify'
 
@@ -32,7 +32,7 @@ export const Login = () => {
                     localStorage.setItem('user', JSON.stringify(data))
                     dispatch(logIn(data))
                     navigate('/')
-                  } 
+                  }
                   catch(e) {
                     if (e.status === 'FETCH_ERROR') {
                       toast.error(t(('ui.toast.disconnect')))
@@ -41,7 +41,7 @@ export const Login = () => {
                     if (e.status === 401) {
                       setServerError('noUserError')
                       return
-                    }  
+                    }
                     else {
                       setServerError('loginError')
                     }
@@ -89,7 +89,7 @@ export const Login = () => {
             </div>
             <div className="card-footer p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span> 
+                <span>Нет аккаунта? </span>
                 <Link to="/signup">Регистрация</Link>
               </div>
             </div>

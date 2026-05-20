@@ -13,7 +13,7 @@ const Messages = () => {
   const messages = useSelector(messageSelectors.selectAll)
   const channels = useSelector(channelsSelectors.selectAll)
   const currentChannel = channels.find(({ id }) => id === activeChannel?.id)
-  const channelName = currentChannel ? currentChannel.name : ""
+  const channelName = currentChannel ? currentChannel.name : ''
   const channelsMessages = messages.filter(({ channelId }) => channelId === activeChannel.id)
   const user = useSelector(state => state.authorization.currentUser)
   const username = user.username
@@ -25,7 +25,8 @@ const Messages = () => {
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0">
             <b>
-              # {filter.clean(channelName)}
+              # 
+              {filter.clean(channelName)}
             </b>
           </p>
           <span className="text-muted">{t('ui.homePage.message', { count: channelsMessages.length })}</span>
@@ -36,8 +37,8 @@ const Messages = () => {
         <div className="mt-auto px-5 py-3">
           <Formik
             initialValues={{ body: '' }}
-            onSubmit={async (values,{ setSubmitting }) => {
-              const newMessage = { body: values.body, channelId: activeChannel.id, username: username}
+            onSubmit={async (values, { setSubmitting }) => {
+              const newMessage = { body: values.body, channelId: activeChannel.id, username: username }
               addNewMessage(newMessage)
               setSubmitting(false)
             }}

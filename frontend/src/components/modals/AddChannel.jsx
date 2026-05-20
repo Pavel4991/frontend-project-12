@@ -77,7 +77,7 @@ const AddChannel = () => {
                     id="name"
                     type="text"
                     name="name"
-                    className={`mb-2 form-control ${error ? "is-invalid" : ""}`}
+                    className={`mb-2 form-control ${error ? 'is-invalid' : ''}`}
                   />
                   <label htmlFor="name" className="visually-hidden">{t('ui.modals.channelName')}</label>
                   {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}

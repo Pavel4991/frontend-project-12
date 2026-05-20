@@ -45,7 +45,7 @@ export const Signup = () => {
 
                     localStorage.setItem('user', JSON.stringify(data))
                     dispatch(logIn(data))
-                    navigate('/') 
+                    navigate('/')
                   } catch (e) {
                     if (e.status === 'FETCH_ERROR') {
                       toast.error(t(('ui.toast.disconnect')))
@@ -69,7 +69,7 @@ export const Signup = () => {
                         autoComplete="username"
                         required
                         id="username"
-                        className={`form-control ${((touched.username && errors.username) || serverError) ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.username && errors.username) || serverError) ? 'is-invalid' : ''}`}
                       />
                       <label className="form-label" htmlFor="username">{t('ui.signupPage.nameField')}</label>
                       {errors.username && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.username}`)}</div>}
@@ -83,7 +83,7 @@ export const Signup = () => {
                         autoComplete="new-password"
                         type="password"
                         id="password"
-                        className={`form-control ${((touched.password && errors.password) || serverError) ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.password && errors.password) || serverError) ? 'is-invalid' : ''}`}
                       />
                       <label className="form-label" htmlFor="password">{t('ui.signupPage.passwordField')}</label>
                       {errors.password && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.password}`)}</div>}
@@ -96,7 +96,7 @@ export const Signup = () => {
                         autoComplete="new-password"
                         type="password"
                         id="confirmPassword"
-                        className={`form-control ${((touched.confirmPassword && errors.confirmPassword) || serverError) ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.confirmPassword && errors.confirmPassword) || serverError) ? 'is-invalid' : ''}`}
                         onChange={(e) => {
                           handleChange(e)
                           setServerError('')
