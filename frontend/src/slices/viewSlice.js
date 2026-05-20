@@ -11,16 +11,9 @@ const viewSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
+      console.log(action.payload)
       state.activeChannel = action.payload
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(removeChannel, (state) => {
-      state.activeChannel = { id: '1', name: 'general'}
-    })
-    .addCase(addNewChannel, (state, action) => {
-      state.activeChannel = action.payload
-    })
   },
 })
 

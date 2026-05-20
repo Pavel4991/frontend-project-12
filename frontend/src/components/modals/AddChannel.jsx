@@ -8,6 +8,7 @@ import { selectors } from '../../slices/channelsSlice'
 import { object, string, setLocale } from 'yup'
 import { toast } from 'react-toastify'
 import { useAddNewChannelMutation } from '../../services/channelsApi'
+import { setActiveChannel } from '../../slices/viewSlice'
 
 const AddChannel = () => {
   const { t } = useTranslation()
@@ -60,6 +61,7 @@ const AddChannel = () => {
           onSubmit={async (values, { setSubmitting }) => {
             await validateName(values.name)
               .then(name => addChannel({ name: name }))
+              .then(responce => dispatch(setActiveChannel(responce.data)))
               .then(closeModal)
               .then(() => toast.success(t('ui.toast.addChannel')))
               .catch(e => setError(e.errors))

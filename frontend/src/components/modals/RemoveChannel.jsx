@@ -4,6 +4,7 @@ import { removeModal } from "../../slices/modalsSlice"
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useRemoveChannelMutation } from "../../services/channelsApi"
+import { setActiveChannel } from "../../slices/viewSlice"
 
 const RemoveChannel = () => {
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ const RemoveChannel = () => {
 
   const deleteChannel = () => {
     removeChannel(channelId)
+    dispatch(setActiveChannel({ id: '1', name: 'general'}))
     closeRemoveModal()
     toast.success(t('ui.toast.removeChannel'))
   }
