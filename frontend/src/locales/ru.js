@@ -16,7 +16,7 @@ export default {
         submitButton: 'Зарегистрироваться',
         duplicateUserError: 'Такой пользователь уже существует',
         shortOrLongError: 'От 3 до 20 символов',
-        passwordMinError: 'Минимум 6 символов',
+        passwordMinError: 'Не менее 6 символов',
         requiredError: 'Обязательное поле',
         passwordMatchError: 'Пароли должны совпадать',
       },
