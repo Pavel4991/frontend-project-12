@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   authStatus: false,
-  currentUser: {}
+  currentUser: {},
 }
 
 const authorizationSlice = createSlice({
@@ -20,6 +20,6 @@ const authorizationSlice = createSlice({
   },
 })
 
-export const { logIn, logOut} = authorizationSlice.actions
+export const { logIn, logOut } = authorizationSlice.actions
 
 export default authorizationSlice.reducer

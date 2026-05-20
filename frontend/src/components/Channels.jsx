@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
-import { Channel } from "./Channel"
-import { setModal } from "../slices/modalsSlice"
+import { useDispatch, useSelector } from 'react-redux'
+import { Channel } from './Channel'
+import { setModal } from '../slices/modalsSlice'
 import { useTranslation } from 'react-i18next'
-import { selectors } from "../slices/channelsSlice"
+import { selectors } from '../slices/channelsSlice'
 
 const Channels = () => {
   const { t } = useTranslation()
@@ -10,7 +10,7 @@ const Channels = () => {
   const dispatch = useDispatch()
 
   const openAddingModal = () => {
-    dispatch(setModal({type: 'adding', channel: null}))
+    dispatch(setModal({ type: 'adding', channel: null }))
   }
 
   return (
@@ -26,10 +26,10 @@ const Channels = () => {
         </button>
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels.map(channel => <Channel key={channel.id} channel={channel}/>)}
+        {channels.map(channel => <Channel key={channel.id} channel={channel} />)}
       </ul>
     </div>
   )
 }
 
-export {Channels} 
+export { Channels }

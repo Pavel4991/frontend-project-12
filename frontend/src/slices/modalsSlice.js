@@ -12,7 +12,7 @@ const modalsSlice = createSlice({
       state.activeModal = action.payload
     },
     removeModal: (state) => {
-      state.activeModal = { type: null, channel: null}
+      state.activeModal = { type: null, channel: null }
     },
   },
 })

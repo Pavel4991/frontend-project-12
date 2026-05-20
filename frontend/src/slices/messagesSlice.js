@@ -26,4 +26,3 @@ export const { addMessages, addNewMessage } = messagesSlice.actions
 export default messagesSlice.reducer
 
 export const selectors = messagesAdapter.getSelectors(state => state.messages)
-

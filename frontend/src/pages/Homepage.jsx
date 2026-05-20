@@ -1,11 +1,11 @@
-import { Channels } from "../components/Channels"
-import { Messages } from "../components/Messages"
-import { addMessages } from "../slices/messagesSlice"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { addChannels } from "../slices/channelsSlice"
-import { useGetChannelsQuery } from "../services/channelsApi"
-import { useGetMessagesQuery } from "../services/messagesApi"
+import { Channels } from '../components/Channels'
+import { Messages } from '../components/Messages'
+import { addMessages } from '../slices/messagesSlice'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { addChannels } from '../slices/channelsSlice'
+import { useGetChannelsQuery } from '../services/channelsApi'
+import { useGetMessagesQuery } from '../services/messagesApi'
 
 const Homepage = () => {
   const dispatch = useDispatch()
@@ -28,8 +28,7 @@ const Homepage = () => {
         <Messages />
       </div>
     </div>
-  )
-  
+  )  
 }
 
-export {Homepage}
+export { Homepage }

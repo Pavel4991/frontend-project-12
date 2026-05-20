@@ -8,7 +8,10 @@ export const NotFound = () => {
     <div className="text-center">
       <img alt={t('ui.notfoundPage.title')} className="img-fluid h-25" src={notFound} />
       <h1 className="h4 text-muted">{t('ui.notfoundPage.title')}</h1>
-      <p className="text-muted">{t('ui.notfoundPage.suggestion')}<a href="/">{t('ui.notfoundPage.link')}</a></p>
+      <p className="text-muted">
+        {t('ui.notfoundPage.suggestion')}
+        <a href="/">{t('ui.notfoundPage.link')}</a>
+      </p>
     </div>
   )
 }

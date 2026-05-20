@@ -1,14 +1,13 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import i18next from 'i18next'
 import resources from './locales/index.js'
-import { io } from "socket.io-client"
+import { io } from 'socket.io-client'
 import { Provider } from 'react-redux'
-import { addNewMessage } from "./slices/messagesSlice.js"
-import { addNewChannel } from "./slices/channelsSlice.js"
-import { renameChannel } from "./slices/channelsSlice.js"
-import { removeChannel } from "./slices/channelsSlice.js"
+import { addNewMessage } from './slices/messagesSlice.js'
+import { addNewChannel } from './slices/channelsSlice.js'
+import { renameChannel } from './slices/channelsSlice.js'
+import { removeChannel } from './slices/channelsSlice.js'
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'
-import filter from 'leo-profanity'
 
 const initApp = async (App, store) => {
   const i18n = i18next.createInstance()
@@ -19,8 +18,6 @@ const initApp = async (App, store) => {
       resources,
       fallbackLng: 'ru',
     })
-
-  // filter.loadDictionary('ru')
 
   const socket = io()
 
@@ -41,11 +38,11 @@ const initApp = async (App, store) => {
   })
 
   const rollbarConfig = {
-  accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN, // or VITE_ROLLBAR_ACCESS_TOKEN
-  environment: import.meta.env.NODE_ENV || 'development',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-}
+    accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN, // or VITE_ROLLBAR_ACCESS_TOKEN
+    environment: import.meta.env.NODE_ENV || 'development',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+  }
 
   return (
     <RollbarProvider config={rollbarConfig}>

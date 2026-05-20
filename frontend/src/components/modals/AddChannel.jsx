@@ -16,7 +16,7 @@ const AddChannel = () => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const [addChannel] = useAddNewChannelMutation()
-  
+
   const inputRef = useRef()
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const AddChannel = () => {
   const closeModal = () => {
     dispatch(removeModal())
   }
-  
+
   const validateName = async (name) => {
     setLocale({
       mixed: {
@@ -42,7 +42,7 @@ const AddChannel = () => {
       name: string()
         .min(3)
         .max(20)
-        .notOneOf(channels)
+        .notOneOf(channels),
     })
 
     await schema.validate({ name: name })
@@ -51,46 +51,46 @@ const AddChannel = () => {
 
   return (
     <>
-    <Modal show onHide={closeModal} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>{t('ui.modals.addChannel')}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Formik
-          initialValues={{ name: "" }}
-          onSubmit={async (values, { setSubmitting }) => {
-            await validateName(values.name)
-              .then(name => addChannel({ name: name }))
-              .then(responce => dispatch(setActiveChannel(responce.data)))
-              .then(closeModal)
-              .then(() => toast.success(t('ui.toast.addChannel')))
-              .catch(e => setError(e.errors))
-            
-            setSubmitting(false)
-          }}
-        >
-          {() => (
-            <Form>
-              <div>
-                <Field
-                  ref={inputRef}
-                  id="name"
-                  type="text"
-                  name="name"
-                  className={`mb-2 form-control ${error ? "is-invalid" : ""}`}
-                />
-                <label htmlFor="name" className="visually-hidden">{t('ui.modals.channelName')}</label>
-                {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}
-              </div>
-              <div className="d-flex justify-content-end">
-                <button type="button" className="me-2 btn btn-secondary" onClick={closeModal}>{t('ui.modals.cancelButton')}</button>
-                <button type="submit" className="btn btn-primary">{t('ui.modals.sendButton')}</button>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </Modal.Body>
-    </Modal>
+      <Modal show onHide={closeModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('ui.modals.addChannel')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={{ name: '' }}
+            onSubmit={async (values, { setSubmitting }) => {
+              await validateName(values.name)
+                .then(name => addChannel({ name: name }))
+                .then(responce => dispatch(setActiveChannel(responce.data)))
+                .then(closeModal)
+                .then(() => toast.success(t('ui.toast.addChannel')))
+                .catch(e => setError(e.errors))
+
+              setSubmitting(false)
+            }}
+          >
+            {() => (
+              <Form>
+                <div>
+                  <Field
+                    ref={inputRef}
+                    id="name"
+                    type="text"
+                    name="name"
+                    className={`mb-2 form-control ${error ? "is-invalid" : ""}`}
+                  />
+                  <label htmlFor="name" className="visually-hidden">{t('ui.modals.channelName')}</label>
+                  {error && <div className="invalid-feedback">{t(`ui.modals.${error}`)}</div>}
+                </div>
+                <div className="d-flex justify-content-end">
+                  <button type="button" className="me-2 btn btn-secondary" onClick={closeModal}>{t('ui.modals.cancelButton')}</button>
+                  <button type="submit" className="btn btn-primary">{t('ui.modals.sendButton')}</button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

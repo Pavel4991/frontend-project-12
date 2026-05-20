@@ -12,12 +12,12 @@ export const channelsApi = createApi({
       return headers
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getChannels: builder.query({
       query: () => '',
     }),
     addNewChannel: builder.mutation({
-      query: (newChannel) => ({
+      query: newChannel => ({
         url: '',
         method: 'POST',
         body: newChannel,
@@ -31,7 +31,7 @@ export const channelsApi = createApi({
       }),
     }),
     removeChannel: builder.mutation({
-      query: (channelId) => ({
+      query: channelId => ({
         url: `/${channelId}`,
         method: 'DELETE',
       }),

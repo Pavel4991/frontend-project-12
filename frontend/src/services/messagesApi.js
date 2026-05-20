@@ -12,12 +12,12 @@ export const messagesApi = createApi({
       return headers
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getMessages: builder.query({
       query: () => '',
     }),
     addNewMessage: builder.mutation({
-      query: (newMessage) => ({
+      query: newMessage => ({
         url: '',
         method: 'POST',
         body: newMessage,

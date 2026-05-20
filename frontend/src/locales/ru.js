@@ -19,21 +19,23 @@ export default {
         passwordMinError: 'Не менее 6 символов',
         requiredError: 'Обязательное поле',
         passwordMatchError: 'Пароли должны совпадать',
+        registrationError: 'Произошла ошибка при регистрации',
       },
       homePage: {
         channels: 'Каналы',
+        сhannelСontrol: 'Управление каналом',
         deleteChannel: 'Удалить',
         renameChannel: 'Переименовать',
         message_one: '{{count}} сообщение',
         message_few: '{{count}} сообщения',
         message_many: '{{count}} сообщений',
         sendMessageButton: 'Отправить',
-        logout: 'Выйти'
+        logout: 'Выйти',
       },
       notfoundPage: {
         title: 'Страница не найдена',
         suggestion: 'Но вы можете перейти ',
-        link: 'на главную страницу'
+        link: 'на главную страницу',
       },
       modals: {
         addChannel: 'Добавить канал',
@@ -51,7 +53,7 @@ export default {
         addChannel: 'Канал создан',
         renameChannel: 'Канал переименован',
         removeChannel: 'Канал удалён',
-        disconnect: 'Ошибка соединения'
+        disconnect: 'Ошибка соединения',
       }
     },
   },

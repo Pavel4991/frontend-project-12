@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { removeChannel } from './channelsSlice'
-import { addNewChannel } from './channelsSlice'
 
 const initialState = {
-  activeChannel: { id: '1', name: 'general'}
+  activeChannel: { id: '1', name: 'general' },
 }
 
 const viewSlice = createSlice({

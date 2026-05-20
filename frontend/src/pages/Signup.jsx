@@ -1,14 +1,13 @@
 import { Formik, Form, Field } from 'formik'
 import { logIn } from '../slices/authorizationSlice'
-import { useDispatch } from "react-redux"
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import signupAvatar from '../assets/avatar_1-D7Cot-zE.jpg'
 import { useSignupMutation } from '../services/authApi'
 import { toast } from 'react-toastify'
-
 
 export const Signup = () => {
   const { t } = useTranslation()
@@ -16,7 +15,7 @@ export const Signup = () => {
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
   const [signup, { isLoading }] = useSignupMutation()
-  
+
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, 'shortOrLongError')
@@ -28,7 +27,6 @@ export const Signup = () => {
     confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'passwordMatchError').required('requiredError'),
   })
 
-
   return (
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -39,12 +37,12 @@ export const Signup = () => {
                 <img src={signupAvatar} className="rounded-circle" alt="Регистрация" />
               </div>
               <Formik
-                initialValues={{ username: '', password: '', confirmPassword: ''}}
+                initialValues={{ username: '', password: '', confirmPassword: '' }}
                 validationSchema={SignupSchema}
                 onSubmit={async (values) => {
-                   try {
+                  try {
                     const data = await signup({ username: values.username, password: values.password }).unwrap()
-                            
+
                     localStorage.setItem('user', JSON.stringify(data))
                     dispatch(logIn(data))
                     navigate('/') 
@@ -56,7 +54,7 @@ export const Signup = () => {
                     if (e.status === 409) {
                       setServerError('duplicateUserError')
                     } else {
-                      setServerError('Произошла ошибка при регистрации')
+                      setServerError('registrationError')
                     }
                   }
                 }}
@@ -108,8 +106,8 @@ export const Signup = () => {
                       {(errors.confirmPassword) && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.confirmPassword}`)}</div>}
                       {(serverError) && <div className="invalid-tooltip">{t(`ui.signupPage.${serverError}`)}</div>}
                     </div>
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       className="w-100 btn btn-outline-primary"
                       disabled={isLoading}
                     >
@@ -125,5 +123,3 @@ export const Signup = () => {
     </div>
   )
 }
-
-

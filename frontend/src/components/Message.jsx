@@ -5,9 +5,10 @@ const Message = (props) => {
 
   return (
     <div className="text-break mb-2">
-      <b>{username}</b>: {filter.clean(body)}
+      <b>{username}</b>
+      : {filter.clean(body)}
     </div>
   )
 }
 
-export {Message}
+export { Message }
