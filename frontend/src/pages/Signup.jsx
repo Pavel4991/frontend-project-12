@@ -46,7 +46,7 @@ export const Signup = () => {
                     localStorage.setItem('user', JSON.stringify(data))
                     dispatch(logIn(data))
                     navigate('/')
-                  } 
+                  }
                   catch (e) {
                     if (e.status === 'FETCH_ERROR') {
                       toast.error(t(('ui.toast.disconnect')))
@@ -54,7 +54,7 @@ export const Signup = () => {
                     }
                     if (e.status === 409) {
                       setServerError('duplicateUserError')
-                    } 
+                    }
                     else {
                       setServerError('registrationError')
                     }
