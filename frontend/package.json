@@ -10,6 +10,11 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@rollbar/react": "^1.0.0",
@@ -32,6 +37,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@eslint/create-config": "^1.11.0",
     "@eslint/js": "^9.39.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

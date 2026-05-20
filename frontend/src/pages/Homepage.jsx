@@ -9,15 +9,15 @@ import { useGetMessagesQuery } from "../services/messagesApi"
 
 const Homepage = () => {
   const dispatch = useDispatch()
-  const { data: channels, isLoading: isCannelsLoading } = useGetChannelsQuery()
-  const { data: messages, isLoading: isMessagesLoading } = useGetMessagesQuery()
+  const { data: channels } = useGetChannelsQuery()
+  const { data: messages } = useGetMessagesQuery()
 
   useEffect(() => {
     if (messages) {
-      dispatch(addMessages(messages));
+      dispatch(addMessages(messages))
     }
     if (channels) {
-      dispatch(addChannels(channels));
+      dispatch(addChannels(channels))
     }
   }, [channels, messages])
 

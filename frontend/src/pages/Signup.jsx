@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 
 
 export const Signup = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
@@ -41,7 +41,7 @@ export const Signup = () => {
               <Formik
                 initialValues={{ username: '', password: '', confirmPassword: ''}}
                 validationSchema={SignupSchema}
-                onSubmit={async (values,{ setSubmitting }) => {
+                onSubmit={async (values) => {
                    try {
                     const data = await signup({ username: values.username, password: values.password }).unwrap()
                             
@@ -59,8 +59,6 @@ export const Signup = () => {
                       setServerError('Произошла ошибка при регистрации')
                     }
                   }
-                  
-                  setSubmitting(false)
                 }}
               >
                 {({ handleChange, errors, touched }) => (

@@ -10,8 +10,7 @@ import { selectors } from '../../slices/channelsSlice'
 import { useRenameChannelMutation } from '../../services/channelsApi'
 
 const RenameChannel = () => {
-  const { t, i18n } = useTranslation()
-  const token = useSelector(state => state.authorization.currentUser).token
+  const { t } = useTranslation()
   const channels = useSelector(selectors.selectAll).map(channel => channel.name)
   const channel = useSelector(state => state.modals.activeModal).channel
   const [error, setError] = useState('')

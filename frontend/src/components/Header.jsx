@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 
 const Header = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const authStatus = useSelector(state => state.authorization.authStatus)
   const dispatch = useDispatch()
   const navigate = useNavigate()

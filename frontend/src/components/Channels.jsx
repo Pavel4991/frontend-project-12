@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
 import { Channel } from "./Channel"
 import { setModal } from "../slices/modalsSlice"
 import { useTranslation } from 'react-i18next'
 import { selectors } from "../slices/channelsSlice"
 
 const Channels = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const channels = useSelector(selectors.selectAll)
   const dispatch = useDispatch()
 

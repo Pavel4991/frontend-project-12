@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import { logIn } from './slices/authorizationSlice'
 import { RequireAuth } from './hoc/RequireAuth'
 import { Homepage } from './pages/Homepage'

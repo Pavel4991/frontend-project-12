@@ -20,7 +20,7 @@ const BaseButton = ({ channel, handleClick, activeChannel }) => {
 
 
 const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const isActive = activeChannel === channel.id
   const dispatch = useDispatch()
 

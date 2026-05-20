@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 import { useAddNewChannelMutation } from '../../services/channelsApi'
 
 const AddChannel = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const channels = useSelector(selectors.selectAll).map(channel => channel.name)
   const [error, setError] = useState('')
   const dispatch = useDispatch()

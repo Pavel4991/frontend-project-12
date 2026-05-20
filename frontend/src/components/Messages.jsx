@@ -6,13 +6,12 @@ import { selectors } from "../slices/messagesSlice"
 import { useAddNewMessageMutation } from "../services/messagesApi"
 
 const Messages = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const activeChannelId = useSelector(state => state.view.activeChannelId)
   const activeChannelName = useSelector(state => state.view.activeChannelName)
   const messages = useSelector(selectors.selectAll)
   const user = useSelector(state => state.authorization.currentUser)
   const channelsMessages = messages.filter(({ channelId }) => channelId === activeChannelId)
-  const token = user.token
   const username = user.username
   const [addNewMessage] = useAddNewMessageMutation()
 

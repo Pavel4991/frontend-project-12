@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 
 
 export const Login = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
@@ -28,7 +28,7 @@ export const Login = () => {
                 </div>
                 <Formik
                   initialValues={{ username: "", password: "" }}
-                  onSubmit={async (values,{ setSubmitting }) => {
+                  onSubmit={async (values) => {
                     try {
                       const data = await login({ username: values.username, password: values.password }).unwrap()
                       localStorage.setItem('user', JSON.stringify(data))

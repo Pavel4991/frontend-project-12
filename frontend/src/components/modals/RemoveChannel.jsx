@@ -7,9 +7,8 @@ import { useRemoveChannelMutation } from "../../services/channelsApi"
 
 const RemoveChannel = () => {
   const dispatch = useDispatch()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const channelId = useSelector(state => state.modals.activeModal).channel.id
-  const token = JSON.parse(localStorage.getItem('user')).token
   const [removeChannel] = useRemoveChannelMutation()
   
 

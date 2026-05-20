@@ -1,19 +1,17 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
-import i18next from 'i18next';
+import i18next from 'i18next'
 import resources from './locales/index.js'
 import { io } from "socket.io-client"
 import { Provider } from 'react-redux'
-import { useDispatch } from "react-redux";
-import store from './slices/index.js'
-import { addNewMessage } from "./slices/messagesSlice.js";
-import { addNewChannel } from "./slices/channelsSlice.js";
-import { renameChannel } from "./slices/channelsSlice.js";
-import { removeChannel } from "./slices/channelsSlice.js";
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { addNewMessage } from "./slices/messagesSlice.js"
+import { addNewChannel } from "./slices/channelsSlice.js"
+import { renameChannel } from "./slices/channelsSlice.js"
+import { removeChannel } from "./slices/channelsSlice.js"
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'
 import filter from 'leo-profanity'
 
 const initApp = async (App, store) => {
-  const i18n = i18next.createInstance();
+  const i18n = i18next.createInstance()
 
   await i18n
     .use(initReactI18next)

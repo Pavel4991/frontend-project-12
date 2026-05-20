@@ -17,7 +17,7 @@ const viewSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(removeChannel, (state, action) => {
+    builder.addCase(removeChannel, (state) => {
       state.activeChannelId = '1'
       state.activeChannelName = 'general'
     })

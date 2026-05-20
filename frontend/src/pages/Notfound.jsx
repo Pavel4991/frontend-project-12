@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import notFound from '../assets/404-D_FLHmTM.svg'
 
 export const NotFound = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className="text-center">
