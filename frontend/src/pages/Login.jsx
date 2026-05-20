@@ -2,10 +2,11 @@ import { Formik, Form, Field } from 'formik'
 import { logIn } from '../slices/authorizationSlice'
 import { useDispatch } from "react-redux"
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useTranslation } from 'react-i18next'
 import loginAvatar from  '../assets/avatar-DIE1AEpS.jpg'
 import { useLoginMutation } from '../services/authApi'
+import { toast } from 'react-toastify'
 
 
 
@@ -13,8 +14,8 @@ export const Login = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [error, setError] = useState('')
-  const [login] = useLoginMutation()
+  const [serverError, setServerError] = useState('')
+  const [login, { isLoading }] = useLoginMutation()
 
   return (
       <div className="container-fluid h-100">
@@ -23,24 +24,28 @@ export const Login = () => {
             <div className="card shadow-sm">
               <div className="card-body row p-5">
                 <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <img src={loginAvatar} className="rounded-circle" alt="Войти" />
+                  <img src={loginAvatar} className="rounded-circle" alt={t('ui.loginPage.title')} />
                 </div>
                 <Formik
                   initialValues={{ username: "", password: "" }}
                   onSubmit={async (values,{ setSubmitting }) => {
                     try {
-                      await login({ username: values.username, password: values.password })
-                        .then(response => {
-                          const data = response.data
-                          localStorage.setItem('user', JSON.stringify(data))
-                          dispatch(logIn(response.data))
-                          navigate('/')
-                        })
+                      const data = await login({ username: values.username, password: values.password }).unwrap()
+                      localStorage.setItem('user', JSON.stringify(data))
+                      dispatch(logIn(data))
+                      navigate('/')
                     } catch(e) {
-                      setError(e.status)
+                      if (e.status === 'FETCH_ERROR') {
+                        toast.error(t(('ui.toast.disconnect')))
+                        return
+                      }
+                      if (e.status === 401) {
+                        setServerError('noUserError')
+                        return
+                      }  else {
+                        setServerError('loginError')
+                      }
                     }
-                    
-                    setSubmitting(false)
                   }}
                 >
                   {() => (
@@ -51,10 +56,10 @@ export const Login = () => {
                           id="username"
                           type="text"
                           name="username"
-                          className={error ? "form-control is-invalid" : "form-control"}
+                          className={serverError ? "form-control is-invalid" : "form-control"}
                           placeholder={t('ui.loginPage.nameField')}
                           autoComplete="username"
-                          required=""
+                          required
                         />
                         <label htmlFor="username" className='form-label'>{t('ui.loginPage.nameField')}</label>
                       </div>
@@ -63,15 +68,21 @@ export const Login = () => {
                           id="password"
                           type="password"
                           name="password"
-                          className={error ? "form-control is-invalid" : "form-control"}
+                          className={serverError ? "form-control is-invalid" : "form-control"}
                           autoComplete="current-password"
                           placeholder={t('ui.loginPage.passwordField')}
-                          required=""
+                          required
                         />
                         <label htmlFor="password" className="form-label">{t('ui.loginPage.passwordField')}</label>
-                        {error && <div className="invalid-tooltip">{t('ui.loginPage.error')}</div>}
+                        {serverError && <div className="invalid-tooltip">{t(`ui.loginPage.${serverError}`)}</div>}
                       </div>
-                      <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('ui.loginPage.title')}</button>
+                      <button 
+                        type="submit" 
+                        className="w-100 mb-3 btn btn-outline-primary"
+                        disabled={isLoading}
+                      >
+                        {t('ui.loginPage.title')}
+                      </button>
                     </Form>
                   )}
                 </Formik>
@@ -79,7 +90,7 @@ export const Login = () => {
               <div className="card-footer p-4">
                 <div className="text-center">
                   <span>Нет аккаунта? </span> 
-                  <a href="/signup">Регистрация</a>
+                  <Link to="/signup">Регистрация</Link>
                 </div>
               </div>
             </div>

@@ -7,24 +7,25 @@ import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import signupAvatar from '../assets/avatar_1-D7Cot-zE.jpg'
 import { useSignupMutation } from '../services/authApi'
+import { toast } from 'react-toastify'
 
 
 export const Signup = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [error, setError] = useState('')
-  const [signup] = useSignupMutation()
+  const [serverError, setServerError] = useState('')
+  const [signup, { isLoading }] = useSignupMutation()
   
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
-      .min(3, 'Минимум 3 буквы')
-      .max(20, 'Максимум 20 букв')
-      .required('Обязательное поле'),
+      .min(3, 'usernameMinError')
+      .max(20, 'usernameMaxError')
+      .required('requiredError'),
     password: Yup.string()
-      .min(6, 'Минимум 6 символов')
-      .required('Обязательное поле'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Пароли должны совпадать').required('Обязательное поле'),
+      .min(6, 'passwordMinError')
+      .required('requiredError'),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'passwordMatchError').required('requiredError'),
   })
 
 
@@ -42,21 +43,27 @@ export const Signup = () => {
                 validationSchema={SignupSchema}
                 onSubmit={async (values,{ setSubmitting }) => {
                    try {
-                    await signup({ username: values.username, password: values.password})
-                      .then(response => {
-                        const data = response.data
-                        localStorage.setItem('user', JSON.stringify(data))
-                        dispatch(logIn(response.data))
-                        navigate('/')
-                      })
-                  } catch(e) {
-                    setError('Неверные имя пользователя или пароль')
+                    const data = await signup({ username: values.username, password: values.password }).unwrap()
+                            
+                    localStorage.setItem('user', JSON.stringify(data))
+                    dispatch(logIn(data))
+                    navigate('/') 
+                  } catch (e) {
+                    if (e.status === 'FETCH_ERROR') {
+                      toast.error(t(('ui.toast.disconnect')))
+                      return
+                    }
+                    if (e.status === 409) {
+                      setServerError('Данный пользователь уже существует')
+                    } else {
+                      setServerError('Произошла ошибка при регистрации')
+                    }
                   }
                   
                   setSubmitting(false)
                 }}
               >
-                {({ errors, touched }) => (
+                {({ handleChange, errors, touched }) => (
                   <Form className="w-50">
                     <h1 className="text-center mb-4">{t('ui.signupPage.title')}</h1>
                     <div className="form-floating mb-3">
@@ -64,41 +71,52 @@ export const Signup = () => {
                         placeholder="От 3 до 20 символов"
                         name="username"
                         autoComplete="username"
-                        required=""
+                        required
                         id="username"
-                        className={`form-control ${touched.username && errors.username ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.username && errors.username) || serverError) ? "is-invalid" : ""}`}
                       />
                       <label className="form-label" htmlFor="username">{t('ui.signupPage.nameField')}</label>
-                      <div className="invalid-tooltip">{errors.username}</div>
+                      {errors.username && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.username}`)}</div>}
                     </div>
                     <div className="form-floating mb-3">
                       <Field
                         placeholder="Не менее 6 символов"
                         name="password"
                         aria-describedby="passwordHelpBlock"
-                        required=""
+                        required
                         autoComplete="new-password"
                         type="password"
                         id="password"
-                        className={`form-control ${touched.password && errors.password ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.password && errors.password) || serverError) ? "is-invalid" : ""}`}
                       />
                       <label className="form-label" htmlFor="password">{t('ui.signupPage.passwordField')}</label>
-                      <div className="invalid-tooltip">{errors.password}</div>
+                      {errors.password && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.password}`)}</div>}
                     </div>
                     <div className="form-floating mb-4">
                       <Field
                         placeholder="Пароли должны совпадать"
                         name="confirmPassword"
-                        required=""
+                        required
                         autoComplete="new-password"
                         type="password"
                         id="confirmPassword"
-                        className={`form-control ${touched.confirmPassword && errors.confirmPassword ? "is-invalid" : ""}`}
+                        className={`form-control ${((touched.confirmPassword && errors.confirmPassword) || serverError) ? "is-invalid" : ""}`}
+                        onChange={(e) => {
+                          handleChange(e)
+                          setServerError('')
+                        }}
                       />
                       <label className="form-label" htmlFor="confirmPassword">{t('ui.signupPage.confirmPasswordField')}</label>
-                      <div className="invalid-tooltip">{errors.confirmPassword}</div>
+                      {(errors.confirmPassword) && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.confirmPassword}`)}</div>}
+                      {(serverError) && <div className="invalid-tooltip">{serverError}</div>}
                     </div>
-                    <button type="submit" className="w-100 btn btn-outline-primary">{t('ui.signupPage.submitButton')}</button>
+                    <button 
+                      type="submit" 
+                      className="w-100 btn btn-outline-primary"
+                      disabled={isLoading}
+                    >
+                      {t('ui.signupPage.submitButton')}
+                    </button>
                   </Form>
                 )}
               </Formik>

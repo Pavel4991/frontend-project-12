@@ -15,8 +15,6 @@ const AddChannel = () => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const [addChannel] = useAddNewChannelMutation()
-
-  const notify = () => toast.success(t('ui.toast.addChannel'))
   
   const inputRef = useRef()
 
@@ -63,7 +61,7 @@ const AddChannel = () => {
             await validateName(values.name)
               .then(name => addChannel({ name: name }))
               .then(closeModal)
-              .then(notify)
+              .then(() => toast.success(t('ui.toast.addChannel')))
               .catch(e => setError(e.errors))
             
             setSubmitting(false)

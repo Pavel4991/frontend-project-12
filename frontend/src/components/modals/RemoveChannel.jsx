@@ -10,7 +10,6 @@ const RemoveChannel = () => {
   const { t, i18n } = useTranslation()
   const channelId = useSelector(state => state.modals.activeModal).channel.id
   const token = JSON.parse(localStorage.getItem('user')).token
-  const notify = () => toast.success(t('ui.toast.removeChannel'))
   const [removeChannel] = useRemoveChannelMutation()
   
 
@@ -21,7 +20,7 @@ const RemoveChannel = () => {
   const deleteChannel = () => {
     removeChannel(channelId)
     closeRemoveModal()
-    notify()
+    toast.success(t('ui.toast.removeChannel'))
   }
 
 

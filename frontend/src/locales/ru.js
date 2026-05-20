@@ -5,7 +5,8 @@ export default {
         title: 'Войти',
         nameField: 'Ваш ник',
         passwordField: 'Пароль',
-        error: 'Неверные имя пользователя или пароль'
+        noUserError: 'Неверные имя пользователя или пароль',
+        loginError: 'Произошла ошибка при попытке войти в аккаунт',
       },
       signupPage: {
         title: 'Регистрация',
@@ -13,7 +14,12 @@ export default {
         passwordField: 'Пароль',
         confirmPasswordField: 'Подтвердите пароль',
         submitButton: 'Зарегистрироваться',
-        error: 'Неверные имя пользователя или пароль'
+        duplicateUserError: 'Такой пользователь уже существует',
+        usernameMinError: 'Минимум 3 буквы',
+        usernameMaxError: 'Максимум 20 букв',
+        passwordMinError: 'Минимум 6 символов',
+        requiredError: 'Обязательное поле',
+        passwordMatchError: 'Пароли должны совпадать',
       },
       homePage: {
         channels: 'Каналы',
@@ -46,6 +52,7 @@ export default {
         addChannel: 'Канал создан',
         renameChannel: 'Канал переименован',
         removeChannel: 'Канал удалён',
+        disconnect: 'Ошибка соединения'
       }
     },
   },

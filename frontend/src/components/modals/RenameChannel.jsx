@@ -17,8 +17,6 @@ const RenameChannel = () => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const [renameChannel] = useRenameChannelMutation()
-  
-  const notify = () => toast.success(t('ui.toast.renameChannel'))
 
   const closeModal = () => {
     dispatch(removeModal())
@@ -65,7 +63,7 @@ const RenameChannel = () => {
             await validateName(values.name)
               .then(name => renameChannel({ channelId: channel.id, editedChannel: { name: name }}))
               .then(closeModal)
-              .then(notify)
+              .then(() => toast.success(t('ui.toast.renameChannel')))
               .catch(e => setError(e.errors))
             
             setSubmitting(false)
