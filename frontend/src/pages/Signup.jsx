@@ -54,7 +54,7 @@ export const Signup = () => {
                       return
                     }
                     if (e.status === 409) {
-                      setServerError('Данный пользователь уже существует')
+                      setServerError('duplicateUserError')
                     } else {
                       setServerError('Произошла ошибка при регистрации')
                     }
@@ -106,7 +106,7 @@ export const Signup = () => {
                       />
                       <label className="form-label" htmlFor="confirmPassword">{t('ui.signupPage.confirmPasswordField')}</label>
                       {(errors.confirmPassword) && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.confirmPassword}`)}</div>}
-                      {(serverError) && <div className="invalid-tooltip">{serverError}</div>}
+                      {(serverError) && <div className="invalid-tooltip">{t(`ui.signupPage.${serverError}`)}</div>}
                     </div>
                     <button 
                       type="submit" 
