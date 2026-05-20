@@ -20,7 +20,7 @@ const initApp = async (App, store) => {
       fallbackLng: 'ru',
     })
 
-  filter.loadDictionary('ru')
+  // filter.loadDictionary('ru')
 
   const socket = io()
 
