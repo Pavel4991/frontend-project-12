@@ -23,11 +23,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route
             index
-            element={
+            element={(
               <RequireAuth>
                 <Homepage />
               </RequireAuth>
-            }
+            )}
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

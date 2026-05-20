@@ -28,7 +28,7 @@ const Homepage = () => {
         <Messages />
       </div>
     </div>
-  )  
+  )
 }
 
 export { Homepage }

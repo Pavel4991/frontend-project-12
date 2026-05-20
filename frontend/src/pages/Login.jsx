@@ -33,7 +33,7 @@ export const Login = () => {
                     dispatch(logIn(data))
                     navigate('/')
                   }
-                  catch(e) {
+                  catch (e) {
                     if (e.status === 'FETCH_ERROR') {
                       toast.error(t(('ui.toast.disconnect')))
                       return

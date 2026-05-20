@@ -57,8 +57,8 @@ const Channel = ({ channel }) => {
   return (
     <li className="nav-item w-100">
       {isNewChannel
-        ? <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>
-        : <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>}
+        ? <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id} />
+        : <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id} />}
     </li>
   )
 }

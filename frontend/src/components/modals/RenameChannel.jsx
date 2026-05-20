@@ -76,7 +76,7 @@ const RenameChannel = () => {
                     id="name"
                     type="text"
                     name="name"
-                    className={`mb-2 form-control ${error ? "is-invalid" : ""}`}
+                    className={`mb-2 form-control ${error ? 'is-invalid' : ''}`}
                     onChange={props.handleChange}
                     value={props.values.name}
                   />
