@@ -36,7 +36,9 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
     <Dropdown as={ButtonGroup} className="d-flex">
       <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
 
-      <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id={channel.name} className="flex-grow-0"/>
+      <Dropdown.Toggle split variant={isActive ? "secondary" : ""} id={channel.name} className="flex-grow-0">
+        <span className="visually-hidden">Управление каналом</span>
+      </Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Dropdown.Item as="button" onClick={openRemoveModal}>{t('ui.homePage.deleteChannel')}</Dropdown.Item>
