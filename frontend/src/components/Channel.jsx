@@ -49,7 +49,7 @@ const NewChannelButton = ({ channel, handleClick, activeChannel }) => {
 
 
 const Channel = ({ channel }) => {
-  const activeChannel = useSelector(state => state.view.activeChannelId)
+  const activeChannel = useSelector(state => state.view.activeChannel)
   const dispatch = useDispatch()
   const isNewChannel = channel.removable
 
@@ -60,8 +60,8 @@ const Channel = ({ channel }) => {
   return (
     <li className="nav-item w-100">
     {isNewChannel ?
-      <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/> :
-      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel}/>
+      <NewChannelButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/> :
+      <BaseButton channel={channel} handleClick={handleClick} activeChannel={activeChannel.id}/>
     }
     </li> 
   )

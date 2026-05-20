@@ -3,8 +3,7 @@ import { removeChannel } from './channelsSlice'
 import { addNewChannel } from './channelsSlice'
 
 const initialState = {
-  activeChannelId: '1',
-  activeChannelName: 'general',
+  activeChannel: { id: '1', name: 'general'}
 }
 
 const viewSlice = createSlice({
@@ -12,18 +11,15 @@ const viewSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
-      state.activeChannelId = action.payload.id
-      state.activeChannelName = action.payload.name
+      state.activeChannel = action.payload
     },
   },
   extraReducers: (builder) => {
     builder.addCase(removeChannel, (state) => {
-      state.activeChannelId = '1'
-      state.activeChannelName = 'general'
+      state.activeChannel = { id: '1', name: 'general'}
     })
     .addCase(addNewChannel, (state, action) => {
-      state.activeChannelId = action.payload.id
-      state.activeChannelName = action.payload.name
+      state.activeChannel = action.payload
     })
   },
 })
