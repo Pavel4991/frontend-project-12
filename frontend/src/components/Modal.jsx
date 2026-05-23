@@ -61,7 +61,7 @@ const ModalInner = ({ closeModal, action }) => {
             <Button variant="danger" onClick={deleteChannel}>{t('ui.modals.deleteButton')}</Button>
           </div>
         </>
-    )
+      )
     : (
         <Formik
           initialValues={{ name: channelName }}
@@ -98,30 +98,30 @@ const ModalInner = ({ closeModal, action }) => {
             </Form>
           )}
         </Formik>
-    ) 
+      )
 }
 
 export const ChannelsModal = ({ action }) => {
   const { t } = useTranslation()
-  
+
   const dispatch = useDispatch()
 
   const closeModal = () => {
     dispatch(removeModal())
   }
 
-  return action 
+  return action
     ? (
-      <>
-        <Modal show onHide={closeModal} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>{t(`ui.modals.${action}`)}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ModalInner closeModal={closeModal} action={action} />
-          </Modal.Body>
-        </Modal>
-      </>
-    )
+        <>
+          <Modal show onHide={closeModal} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>{t(`ui.modals.${action}`)}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <ModalInner closeModal={closeModal} action={action} />
+            </Modal.Body>
+          </Modal>
+        </>
+      )
     : null
 }
