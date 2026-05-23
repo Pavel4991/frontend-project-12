@@ -24,7 +24,7 @@ export const signupSchema = Yup.object().shape({
     .required(),
 })
 
-export const modalSchema = (channels) => 
+export const modalSchema = channels =>
   Yup.object().shape({
     name: Yup.string()
       .min(3)
@@ -32,4 +32,3 @@ export const modalSchema = (channels) =>
       .notOneOf(channels)
       .required(),
   })
-

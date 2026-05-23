@@ -55,7 +55,7 @@ export default {
         requiredError: 'Обязательное поле',
         passwordMinError: 'Не менее 6 символов',
         passwordMatchError: 'Пароли должны совпадать',
-      }
+      },
     },
   },
 }

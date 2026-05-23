@@ -16,7 +16,7 @@ export const Layout = () => {
           <ToastContainer />
         </div>
       </div>
-      <ChannelsModal action={activeModal.type}/>
+      <ChannelsModal action={activeModal.type} />
     </>
   )
 }
