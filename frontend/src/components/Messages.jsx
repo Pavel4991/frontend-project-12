@@ -19,6 +19,11 @@ const Messages = () => {
   const username = user.username
   const [addNewMessage] = useAddNewMessageMutation()
 
+  const handleSubmit = async (values) => {
+    const newMessage = { body: values.body, channelId: activeChannel.id, username: username }
+    await addNewMessage(newMessage)
+  }
+
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
@@ -38,8 +43,7 @@ const Messages = () => {
           <Formik
             initialValues={{ body: '' }}
             onSubmit={async (values, { setSubmitting }) => {
-              const newMessage = { body: values.body, channelId: activeChannel.id, username: username }
-              addNewMessage(newMessage)
+              handleSubmit(values)
               setSubmitting(false)
             }}
           >

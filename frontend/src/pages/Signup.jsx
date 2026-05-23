@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import * as Yup from 'yup'
 import signupAvatar from '../assets/avatar_1-D7Cot-zE.jpg'
 import { useSignupMutation } from '../services/authApi'
 import { toast } from 'react-toastify'
+import { signupSchema } from '../utils/validation'
 
 export const Signup = () => {
   const { t } = useTranslation()
@@ -16,16 +16,27 @@ export const Signup = () => {
   const [serverError, setServerError] = useState('')
   const [signup, { isLoading }] = useSignupMutation()
 
-  const SignupSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(3, 'shortOrLongError')
-      .max(20, 'shortOrLongError')
-      .required('requiredError'),
-    password: Yup.string()
-      .min(6, 'passwordMinError')
-      .required('requiredError'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'passwordMatchError').required('requiredError'),
-  })
+  const handleSubmit = async (values) => {
+    try {
+      const data = await signup({ username: values.username, password: values.password }).unwrap()
+
+      localStorage.setItem('user', JSON.stringify(data))
+      dispatch(logIn(data))
+      navigate('/')
+    }
+    catch (e) {
+      if (e.status === 'FETCH_ERROR') {
+        toast.error(t('ui.toast.disconnect'))
+        return
+      }
+      if (e.status === 409) {
+        setServerError('duplicateUserError')
+      }
+      else {
+        setServerError('registrationError')
+      }
+    }
+  }
 
   return (
     <div className="container-fluid h-100">
@@ -38,27 +49,9 @@ export const Signup = () => {
               </div>
               <Formik
                 initialValues={{ username: '', password: '', confirmPassword: '' }}
-                validationSchema={SignupSchema}
-                onSubmit={async (values) => {
-                  try {
-                    const data = await signup({ username: values.username, password: values.password }).unwrap()
-
-                    localStorage.setItem('user', JSON.stringify(data))
-                    dispatch(logIn(data))
-                    navigate('/')
-                  }
-                  catch (e) {
-                    if (e.status === 'FETCH_ERROR') {
-                      toast.error(t(('ui.toast.disconnect')))
-                      return
-                    }
-                    if (e.status === 409) {
-                      setServerError('duplicateUserError')
-                    }
-                    else {
-                      setServerError('registrationError')
-                    }
-                  }
+                validationSchema={signupSchema}
+                onSubmit={(values) => {
+                  handleSubmit(values)
                 }}
               >
                 {({ handleChange, errors, touched }) => (
@@ -74,7 +67,7 @@ export const Signup = () => {
                         className={`form-control ${((touched.username && errors.username) || serverError) ? 'is-invalid' : ''}`}
                       />
                       <label className="form-label" htmlFor="username">{t('ui.signupPage.nameField')}</label>
-                      {errors.username && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.username}`)}</div>}
+                      {errors.username && <div className="invalid-tooltip">{t(`ui.validation.${errors.username}`)}</div>}
                     </div>
                     <div className="form-floating mb-3">
                       <Field
@@ -88,7 +81,7 @@ export const Signup = () => {
                         className={`form-control ${((touched.password && errors.password) || serverError) ? 'is-invalid' : ''}`}
                       />
                       <label className="form-label" htmlFor="password">{t('ui.signupPage.passwordField')}</label>
-                      {errors.password && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.password}`)}</div>}
+                      {errors.password && <div className="invalid-tooltip">{t(`ui.validation.${errors.password}`)}</div>}
                     </div>
                     <div className="form-floating mb-4">
                       <Field
@@ -105,7 +98,7 @@ export const Signup = () => {
                         }}
                       />
                       <label className="form-label" htmlFor="confirmPassword">{t('ui.signupPage.confirmPasswordField')}</label>
-                      {(errors.confirmPassword) && <div className="invalid-tooltip">{t(`ui.signupPage.${errors.confirmPassword}`)}</div>}
+                      {errors.confirmPassword && <div className="invalid-tooltip">{t(`ui.validation.${errors.confirmPassword}`)}</div>}
                       {(serverError) && <div className="invalid-tooltip">{t(`ui.signupPage.${serverError}`)}</div>}
                     </div>
                     <button

@@ -10,7 +10,7 @@ const Channels = () => {
   const dispatch = useDispatch()
 
   const openAddingModal = () => {
-    dispatch(setModal({ type: 'adding', channel: null }))
+    dispatch(setModal({ type: 'adding', channel: '' }))
   }
 
   return (

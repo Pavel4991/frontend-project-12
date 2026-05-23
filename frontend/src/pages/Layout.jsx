@@ -1,17 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import getModal from '../components/modals/index'
 import { useSelector } from 'react-redux'
 import { Header } from '../components/Header'
 import { ToastContainer } from 'react-toastify'
-
-const renderModal = ({ activeModal }) => {
-  if (!activeModal.type) {
-    return null
-  }
-
-  const Component = getModal(activeModal.type)
-  return <Component modalInfo={activeModal} />
-}
+import { ChannelsModal } from '../components/Modal'
 
 export const Layout = () => {
   const activeModal = useSelector(state => state.modals.activeModal)
@@ -25,7 +16,7 @@ export const Layout = () => {
           <ToastContainer />
         </div>
       </div>
-      {renderModal({ activeModal })}
+      <ChannelsModal action={activeModal.type}/>
     </>
   )
 }

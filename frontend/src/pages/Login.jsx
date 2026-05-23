@@ -15,6 +15,28 @@ export const Login = () => {
   const [serverError, setServerError] = useState('')
   const [login, { isLoading }] = useLoginMutation()
 
+  const handleSubmit = async (values) => {
+    try {
+      const data = await login({ username: values.username, password: values.password }).unwrap()
+      localStorage.setItem('user', JSON.stringify(data))
+      dispatch(logIn(data))
+      navigate('/')
+    }
+    catch (e) {
+      if (e.status === 'FETCH_ERROR') {
+        toast.error(t(('ui.toast.disconnect')))
+        return
+      }
+      if (e.status === 401) {
+        setServerError('noUserError')
+        return
+      }
+      else {
+        setServerError('loginError')
+      }
+    }
+  }
+
   return (
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -27,25 +49,7 @@ export const Login = () => {
               <Formik
                 initialValues={{ username: '', password: '' }}
                 onSubmit={async (values) => {
-                  try {
-                    const data = await login({ username: values.username, password: values.password }).unwrap()
-                    localStorage.setItem('user', JSON.stringify(data))
-                    dispatch(logIn(data))
-                    navigate('/')
-                  }
-                  catch (e) {
-                    if (e.status === 'FETCH_ERROR') {
-                      toast.error(t(('ui.toast.disconnect')))
-                      return
-                    }
-                    if (e.status === 401) {
-                      setServerError('noUserError')
-                      return
-                    }
-                    else {
-                      setServerError('loginError')
-                    }
-                  }
+                  handleSubmit(values)
                 }}
               >
                 {() => (
