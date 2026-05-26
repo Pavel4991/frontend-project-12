@@ -69,7 +69,7 @@ const Messages = () => {
                     placeholder="Введите сообщение..."
                   />
                   <button
-                    type="submit" disabled=""
+                    type="submit"
                     className="btn btn-group-vertical"
                     disabled={!values.body.trim() || isSubmitting}
                   >
