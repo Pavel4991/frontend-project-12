@@ -61,7 +61,6 @@ export const Signup = () => {
                       <Field
                         placeholder="От 3 до 20 символов"
                         name="username"
-                        autoComplete="username"
                         required
                         id="username"
                         className={`form-control ${((touched.username && errors.username) || serverError) ? 'is-invalid' : ''}`}
@@ -75,7 +74,6 @@ export const Signup = () => {
                         name="password"
                         aria-describedby="passwordHelpBlock"
                         required
-                        autoComplete="new-password"
                         type="password"
                         id="password"
                         className={`form-control ${((touched.password && errors.password) || serverError) ? 'is-invalid' : ''}`}
@@ -88,7 +86,6 @@ export const Signup = () => {
                         placeholder="Пароли должны совпадать"
                         name="confirmPassword"
                         required
-                        autoComplete="new-password"
                         type="password"
                         id="confirmPassword"
                         className={`form-control ${((touched.confirmPassword && errors.confirmPassword) || serverError) ? 'is-invalid' : ''}`}

@@ -6,6 +6,7 @@ import { selectors as messageSelectors } from '../slices/messagesSlice'
 import { selectors as channelsSelectors } from '../slices/channelsSlice'
 import { useAddNewMessageMutation } from '../services/messagesApi'
 import filter from 'leo-profanity'
+import { useEffect, useRef } from 'react'
 
 const Messages = () => {
   const { t } = useTranslation()
@@ -17,7 +18,17 @@ const Messages = () => {
   const channelsMessages = messages.filter(({ channelId }) => channelId === activeChannel.id)
   const user = useSelector(state => state.authorization.currentUser)
   const username = user.username
+  const messagesBoxRef = useRef(null)
   const [addNewMessage] = useAddNewMessageMutation()
+
+  useEffect(() => {
+    if (messagesBoxRef.current) {
+      messagesBoxRef.current.scrollTo({
+        top: messagesBoxRef.current.scrollHeight,
+        behavior: 'auto'
+      })
+    }
+  }, [channelsMessages]) 
 
   const handleSubmit = async (values) => {
     const newMessage = { body: values.body, channelId: activeChannel.id, username: username }
@@ -36,14 +47,15 @@ const Messages = () => {
           </p>
           <span className="text-muted">{t('ui.homePage.message', { count: channelsMessages.length })}</span>
         </div>
-        <div id="messages-box" className="chat-messages overflow-auto px-5 ">
+        <div id="messages-box" className="chat-messages overflow-auto px-5 " ref={messagesBoxRef} >
           {channelsMessages.map(message => (<Message key={message.id} username={message.username} body={message.body} />))}
         </div>
         <div className="mt-auto px-5 py-3">
           <Formik
             initialValues={{ body: '' }}
-            onSubmit={async (values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting, resetForm}) => {
               handleSubmit(values)
+              resetForm()
               setSubmitting(false)
             }}
           >

@@ -62,7 +62,6 @@ export const Login = () => {
                         name="username"
                         className={serverError ? 'form-control is-invalid' : 'form-control'}
                         placeholder={t('ui.loginPage.nameField')}
-                        autoComplete="username"
                         required
                       />
                       <label htmlFor="username" className="form-label">{t('ui.loginPage.nameField')}</label>
@@ -73,7 +72,6 @@ export const Login = () => {
                         type="password"
                         name="password"
                         className={serverError ? 'form-control is-invalid' : 'form-control'}
-                        autoComplete="current-password"
                         placeholder={t('ui.loginPage.passwordField')}
                         required
                       />
