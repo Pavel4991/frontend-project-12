@@ -1,5 +1,90 @@
-### Hexlet tests and linter status:
+# Hexlet Chat
+
 [![Actions Status](https://github.com/Pavel4991/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Pavel4991/frontend-project-12/actions)
 
-### Hexlet tests and linter status:
-https://frontend-project-12-kxf7.onrender.com
+**Hexlet Chat** — аналог Slack-чата с возможностью общения в реальном времени. Проект выполнен в рамках обучения на платформе [Hexlet](https://hexlet.io).
+
+🔗 **[Демо](https://frontend-project-12-kxf7.onrender.com)**
+
+---
+
+## Возможности
+
+- 🔐 **Регистрация и авторизация** — создание аккаунта и вход в систему
+- 💬 **Обмен сообщениями в реальном времени** — мгновенная отправка и получение сообщений через WebSockets
+- 📁 **Управление каналами** — создание, переименование и удаление каналов
+- 🔄 **Автоматическое обновление** — новые каналы и сообщения появляются без перезагрузки страницы
+- 🚫 **Фильтрация нецензурной лексики** — сообщения проходят через фильтр `leo-profanity`
+- 🌐 **Локализация** — интерфейс на русском языке
+- 📱 **Адаптивный дизайн** — Bootstrap 5, корректное отображение на мобильных устройствах
+
+---
+
+## Технологии
+
+| Технология | Назначение |
+|---|---|
+| **React 19** | UI-библиотека |
+| **Redux Toolkit** | Управление состоянием |
+| **React Router v7** | Маршрутизация |
+| **Socket.io** | Реалтайм-взаимодействие |
+| **Axios** | HTTP-запросы |
+| **Formik + Yup** | Формы и валидация |
+| **Bootstrap 5 + react-bootstrap** | Интерфейс |
+| **i18next** | Интернационализация |
+| **leo-profanity** | Фильтр нецензурной лексики |
+| **Rollbar** | Мониторинг ошибок |
+| **Vite** | Сборка |
+
+---
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+make install
+
+# Сборка проекта
+make build
+
+# Запуск сервера (встроенный бэкенд @hexlet/chat-server)
+make start
+
+# Режим разработки (фронтенд + бэкенд одновременно)
+make develop
+```
+
+В режиме разработки фронтенд доступен на `http://localhost:5002` (Vite с HMR), бэкенд — на `http://localhost:5001`.
+
+---
+
+## Команды
+
+| Команда | Описание |
+|---|---|
+| `make install` | Установка зависимостей |
+| `make build` | Сборка под production |
+| `make start` | Запуск production-сервера (порт 5001) |
+| `make develop` | Режим разработки (Vite HMR + API) |
+| `make lint-frontend` | Проверка линтером |
+
+---
+
+## Структура проекта
+
+```
+frontend-project-12/
+├── frontend/
+│   ├── src/
+│   │   ├── components/    # Компоненты UI
+│   │   ├── pages/         # Страницы приложения
+│   │   ├── slices/        # Redux slices
+│   │   ├── services/      # API-слои (RTK Query)
+│   │   ├── hoc/           # HOC-компоненты
+│   │   ├── locales/       # Переводы
+│   │   ├── utils/         # Вспомогательные функции
+│   │   └── styles/        # Стили
+│   └── index.html
+├── package.json           # Корневой манифест
+└── Makefile               # Команды управления
+```
